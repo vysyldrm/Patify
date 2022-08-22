@@ -26,13 +26,22 @@ namespace Patify.Models
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
+        public int? CityId { get; set; }
+        [ForeignKey("CityId")]
+        public City City { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime PublishDate { get; set; }
+
         public string AnimalRace { get; set; }
 
         [Required]
         public Gender Gender { get; set; }
 
         public SizeOfAnimal? SizeOfAnimal { get; set; }
-            
+
+        public FromWho? FromWho { get; set; }
+
         public List<Photos> AnimalPhotos { get; set; }
 
     }
@@ -48,5 +57,13 @@ namespace Patify.Models
         Kucuk,
         Orta,
         Buyuk
+    }
+    public enum FromWho
+    {
+        Sahibinden,
+        Barinaktan,
+        Sokak,
+        Veteriner,
+        GeciciEv
     }
 }
