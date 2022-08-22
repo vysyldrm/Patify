@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Patify.Models
 {
-    public class User : IdentityUser
+    public class AppUser : IdentityUser
     {
         [Required]
         public string FirstName { get; set; }
