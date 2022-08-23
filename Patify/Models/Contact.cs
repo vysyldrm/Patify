@@ -18,6 +18,8 @@ namespace Patify.Models
 
         public string Phone { get; set; }
 
+        public string Subject { get; set; }
+
         [Required]
         public string Message { get; set; }
     }

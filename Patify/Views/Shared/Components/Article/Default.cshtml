@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Article>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        <li>
+            <a asp-area="" asp-controller="Article" asp-action="Details" asp-route-id="@item.ArticleHeader">
+                @item.ArticleHeader
+            </a>
+        </li>
+    }
+</ul>

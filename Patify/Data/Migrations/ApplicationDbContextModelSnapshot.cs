@@ -191,6 +191,12 @@ namespace Patify.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Publish")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("PublishDate")
                         .HasColumnType("datetime2");
 
@@ -258,9 +264,6 @@ namespace Patify.Data.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("ProfilePicture")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -355,26 +358,12 @@ namespace Patify.Data.Migrations
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Contact");
-                });
-
-            modelBuilder.Entity("Patify.Models.Photos", b =>
-                {
-                    b.Property<int>("PhotosId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AdvertId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PhotosId");
-
-                    b.HasIndex("AdvertId");
-
-                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -439,15 +428,6 @@ namespace Patify.Data.Migrations
                     b.HasOne("Patify.Models.City", "City")
                         .WithMany()
                         .HasForeignKey("CityId");
-                });
-
-            modelBuilder.Entity("Patify.Models.Photos", b =>
-                {
-                    b.HasOne("Patify.Models.Advert", "Advert")
-                        .WithMany("AnimalPhotos")
-                        .HasForeignKey("AdvertId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -6,27 +6,26 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Patify.Data;
-using Patify.Models;
 
-namespace Patify.Controllers
+namespace Patify.Models
 {
-    public class PhotoController : Controller
+    public class AdvertController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public PhotoController(ApplicationDbContext context)
+        public AdvertController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Photo
+        // GET: Advert
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Photos.Include(p => p.Advert);
+            var applicationDbContext = _context.Advert.Include(a => a.Category).Include(a => a.City);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Photo/Details/5
+        // GET: Advert/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,42 +33,45 @@ namespace Patify.Controllers
                 return NotFound();
             }
 
-            var photos = await _context.Photos
-                .Include(p => p.Advert)
-                .FirstOrDefaultAsync(m => m.PhotosId == id);
-            if (photos == null)
+            var advert = await _context.Advert
+                .Include(a => a.Category)
+                .Include(a => a.City)
+                .FirstOrDefaultAsync(m => m.AdvertId == id);
+            if (advert == null)
             {
                 return NotFound();
             }
 
-            return View(photos);
+            return View(advert);
         }
 
-        // GET: Photo/Create
+        // GET: Advert/Create
         public IActionResult Create()
         {
-            ViewData["AdvertId"] = new SelectList(_context.Advert, "AdvertId", "Description");
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId");
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id");
             return View();
         }
 
-        // POST: Photo/Create
+        // POST: Advert/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PhotosId,AdvertId")] Photos photos)
+        public async Task<IActionResult> Create([Bind("AdvertId,Header,Description,AnimalName,AnimalAge,CategoryId,CityId,PublishDate,AnimalRace,Gender,SizeOfAnimal,FromWho,Photo,Publish")] Advert advert)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(photos);
+                _context.Add(advert);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AdvertId"] = new SelectList(_context.Advert, "AdvertId", "Description", photos.AdvertId);
-            return View(photos);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", advert.CategoryId);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", advert.CityId);
+            return View(advert);
         }
 
-        // GET: Photo/Edit/5
+        // GET: Advert/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -77,23 +79,24 @@ namespace Patify.Controllers
                 return NotFound();
             }
 
-            var photos = await _context.Photos.FindAsync(id);
-            if (photos == null)
+            var advert = await _context.Advert.FindAsync(id);
+            if (advert == null)
             {
                 return NotFound();
             }
-            ViewData["AdvertId"] = new SelectList(_context.Advert, "AdvertId", "Description", photos.AdvertId);
-            return View(photos);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", advert.CategoryId);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", advert.CityId);
+            return View(advert);
         }
 
-        // POST: Photo/Edit/5
+        // POST: Advert/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PhotosId,AdvertId")] Photos photos)
+        public async Task<IActionResult> Edit(int id, [Bind("AdvertId,Header,Description,AnimalName,AnimalAge,CategoryId,CityId,PublishDate,AnimalRace,Gender,SizeOfAnimal,FromWho,Photo,Publish")] Advert advert)
         {
-            if (id != photos.PhotosId)
+            if (id != advert.AdvertId)
             {
                 return NotFound();
             }
@@ -102,12 +105,12 @@ namespace Patify.Controllers
             {
                 try
                 {
-                    _context.Update(photos);
+                    _context.Update(advert);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PhotosExists(photos.PhotosId))
+                    if (!AdvertExists(advert.AdvertId))
                     {
                         return NotFound();
                     }
@@ -118,11 +121,12 @@ namespace Patify.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AdvertId"] = new SelectList(_context.Advert, "AdvertId", "Description", photos.AdvertId);
-            return View(photos);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", advert.CategoryId);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", advert.CityId);
+            return View(advert);
         }
 
-        // GET: Photo/Delete/5
+        // GET: Advert/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,31 +134,32 @@ namespace Patify.Controllers
                 return NotFound();
             }
 
-            var photos = await _context.Photos
-                .Include(p => p.Advert)
-                .FirstOrDefaultAsync(m => m.PhotosId == id);
-            if (photos == null)
+            var advert = await _context.Advert
+                .Include(a => a.Category)
+                .Include(a => a.City)
+                .FirstOrDefaultAsync(m => m.AdvertId == id);
+            if (advert == null)
             {
                 return NotFound();
             }
 
-            return View(photos);
+            return View(advert);
         }
 
-        // POST: Photo/Delete/5
+        // POST: Advert/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var photos = await _context.Photos.FindAsync(id);
-            _context.Photos.Remove(photos);
+            var advert = await _context.Advert.FindAsync(id);
+            _context.Advert.Remove(advert);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PhotosExists(int id)
+        private bool AdvertExists(int id)
         {
-            return _context.Photos.Any(e => e.PhotosId == id);
+            return _context.Advert.Any(e => e.AdvertId == id);
         }
     }
 }

@@ -19,7 +19,6 @@ namespace Patify.Data
         public DbSet<Category> Category { get; set; }
         public DbSet<City> City { get; set; }
         public DbSet<Contact> Contact { get; set; }
-        public DbSet<Photos> Photos { get; set; }
 
 
     }

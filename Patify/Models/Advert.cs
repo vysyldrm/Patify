@@ -42,8 +42,9 @@ namespace Patify.Models
 
         public FromWho? FromWho { get; set; }
 
-        public List<Photos> AnimalPhotos { get; set; }
+        public string Photo { get; set; }
 
+        public bool Publish { get; set; } = false;
     }
 
     public enum Gender

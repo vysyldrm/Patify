@@ -66,6 +66,16 @@
                 <span asp-validation-for="FromWho" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Photo" class="control-label"></label>
+                <input type="file" class="form-controller" name="files" />
+                <span asp-validation-for="Photo" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Publish" /> @Html.DisplayNameFor(model => model.Publish)
+                </label>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>

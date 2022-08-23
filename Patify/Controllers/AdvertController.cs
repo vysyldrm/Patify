@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,12 @@ namespace Patify.Controllers
             _context = context;
         }
 
+        public IActionResult AllAdverts()
+        {
+            return View();
+        }
+
+
         // GET: Advert
         public async Task<IActionResult> Index()
         {
@@ -27,6 +34,7 @@ namespace Patify.Controllers
         }
 
         // GET: Advert/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,10 +55,12 @@ namespace Patify.Controllers
         }
 
         // GET: Advert/Create
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User")]
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId");
-            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id");
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "CityName");
             return View();
         }
 
@@ -59,7 +69,7 @@ namespace Patify.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AdvertId,Header,Description,AnimalName,AnimalAge,CategoryId,CityId,PublishDate,AnimalRace,Gender,SizeOfAnimal,FromWho")] Advert advert)
+        public async Task<IActionResult> Create([Bind("AdvertId,Header,Description,AnimalName,AnimalAge,CategoryId,CityId,PublishDate,AnimalRace,Gender,SizeOfAnimal,FromWho,Photo,Publish")] Advert advert)
         {
             if (ModelState.IsValid)
             {
@@ -67,8 +77,8 @@ namespace Patify.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", advert.CategoryId);
-            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", advert.CityId);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", advert.CategoryId);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "CityName", advert.CityId);
             return View(advert);
         }
 
@@ -85,8 +95,8 @@ namespace Patify.Controllers
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", advert.CategoryId);
-            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", advert.CityId);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", advert.CategoryId);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "CityName", advert.CityId);
             return View(advert);
         }
 
@@ -95,7 +105,7 @@ namespace Patify.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AdvertId,Header,Description,AnimalName,AnimalAge,CategoryId,CityId,PublishDate,AnimalRace,Gender,SizeOfAnimal,FromWho")] Advert advert)
+        public async Task<IActionResult> Edit(int id, [Bind("AdvertId,Header,Description,AnimalName,AnimalAge,CategoryId,CityId,PublishDate,AnimalRace,Gender,SizeOfAnimal,FromWho,Photo,Publish")] Advert advert)
         {
             if (id != advert.AdvertId)
             {
@@ -122,8 +132,8 @@ namespace Patify.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryId", advert.CategoryId);
-            ViewData["CityId"] = new SelectList(_context.City, "Id", "Id", advert.CityId);
+            ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName", advert.CategoryId);
+            ViewData["CityId"] = new SelectList(_context.City, "Id", "CityName", advert.CityId);
             return View(advert);
         }
 
