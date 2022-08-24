@@ -304,6 +304,14 @@
         "runtime": {
           "Patify.dll": {}
         },
+        "resources": {
+          "en-US/Patify.resources.dll": {
+            "locale": "en-US"
+          },
+          "tr-TR/Patify.resources.dll": {
+            "locale": "tr-TR"
+          }
+        },
         "compile": {
           "Patify.dll": {}
         }

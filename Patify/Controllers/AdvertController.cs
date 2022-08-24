@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -14,10 +16,13 @@ namespace Patify.Controllers
     public class AdvertController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public AdvertController(ApplicationDbContext context)
+        public AdvertController(ApplicationDbContext context, IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
+            _hostingEnvironment = hostingEnvironment;
+
         }
 
         public IActionResult AllAdverts()
@@ -34,7 +39,6 @@ namespace Patify.Controllers
         }
 
         // GET: Advert/Details/5
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -55,8 +59,7 @@ namespace Patify.Controllers
         }
 
         // GET: Advert/Create
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult Create()
         {
             ViewData["CategoryId"] = new SelectList(_context.Category, "CategoryId", "CategoryName");
@@ -71,8 +74,22 @@ namespace Patify.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("AdvertId,Header,Description,AnimalName,AnimalAge,CategoryId,CityId,PublishDate,AnimalRace,Gender,SizeOfAnimal,FromWho,Photo,Publish")] Advert advert)
         {
+            advert.PublishDate = DateTime.Now.Date;
             if (ModelState.IsValid)
             {
+                string webRootPath = _hostingEnvironment.WebRootPath;
+                var files = HttpContext.Request.Form.Files;
+
+                string fileName = Guid.NewGuid().ToString();
+                var uploads = Path.Combine(webRootPath, @"img\advert");
+                var extension = Path.GetExtension(files[0].FileName);
+
+                using (var fileStream = new FileStream(Path.Combine(uploads, fileName + extension), FileMode.Create))
+                {
+                    files[0].CopyTo(fileStream);
+                }
+                advert.Photo = @"\img\advert\" + fileName + extension;
+
                 _context.Add(advert);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -83,6 +100,8 @@ namespace Patify.Controllers
         }
 
         // GET: Advert/Edit/5
+        [Authorize(Roles = "User, Admin")]
+
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -138,6 +157,8 @@ namespace Patify.Controllers
         }
 
         // GET: Advert/Delete/5
+        [Authorize(Roles = "User, Admin")]
+
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

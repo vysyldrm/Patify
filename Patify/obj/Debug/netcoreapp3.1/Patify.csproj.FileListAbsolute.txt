@@ -230,3 +230,17 @@ C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\Razor\V
 C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\Razor\Views\Advert\Index.cshtml.g.cs
 C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\Razor\Views\Advert\AllAdverts.cshtml.g.cs
 C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Create.cshtml.g.cs
+C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\Patify.csproj.GenerateResource.cache
+C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\bin\Debug\netcoreapp3.1\en-US\Patify.resources.dll
+C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\bin\Debug\netcoreapp3.1\tr-Tr\Patify.resources.dll
+C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\Patify.Resources.Controllers.HomeController.en-US.resources
+C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\Patify.Resources.Controllers.HomeController.tr-Tr.resources
+C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\en-US\Patify.resources.dll
+C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\tr-Tr\Patify.resources.dll
+C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\Patify.Resources.SharedModelResource.en-US.resources
+C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\Patify.Resources.SharedModelResource.tr-TR.resources
+C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\Patify.Resources.SharedResource.en-US.resources
+C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\Patify.Resources.SharedResource.tr-TR.resources
+C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_CulturePartial.cshtml.g.cs
+C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Components\Advert\Default.cshtml.g.cs
+C:\Users\vysyldrm\Documents\GitHub\Patify\Patify\obj\Debug\netcoreapp3.1\Razor\Views\Article\AllArticles.cshtml.g.cs

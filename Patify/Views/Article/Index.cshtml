@@ -34,7 +34,9 @@
                 @Html.DisplayFor(modelItem => item.ArticleHeader)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ArticlePhoto)
+                @*@Html.DisplayFor(modelItem => item.ArticlePhoto)*@
+                <img src="@Url.Content(item.ArticlePhoto)" class="d-block w-50" asp-append-version="true" />
+
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

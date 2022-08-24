@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Header" class="control-label"></label>
@@ -34,16 +34,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="CityId" class="control-label"></label>
-                <select asp-for="CityId" class ="form-control" asp-items="ViewBag.CityId"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="PublishDate" class="control-label"></label>
-                <input asp-for="PublishDate" class="form-control" />
-                <span asp-validation-for="PublishDate" class="text-danger"></span>
+                <select asp-for="CityId" class="form-control" asp-items="ViewBag.CityId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="AnimalRace" class="control-label"></label>
@@ -52,28 +47,23 @@
             </div>
             <div class="form-group">
                 <label asp-for="Gender" class="control-label"></label>
-                <select asp-for="Gender" class="form-control"></select>
+                <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-control"></select>
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SizeOfAnimal" class="control-label"></label>
-                <input asp-for="SizeOfAnimal" class="form-control" />
+                <select asp-for="SizeOfAnimal" asp-items="Html.GetEnumSelectList<SizeOfAnimal>()" class="form-control"></select>
                 <span asp-validation-for="SizeOfAnimal" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FromWho" class="control-label"></label>
-                <input asp-for="FromWho" class="form-control" />
+                <select asp-for="FromWho" asp-items="Html.GetEnumSelectList<FromWho>()" class="form-control"></select>
                 <span asp-validation-for="FromWho" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Photo" class="control-label"></label>
                 <input type="file" class="form-controller" name="files" />
                 <span asp-validation-for="Photo" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Publish" /> @Html.DisplayNameFor(model => model.Publish)
-                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
